@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – Tinov Beauty Admin</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="stylesheet" href="../../css/admin.css"/>
+  <link class="katalog-icon" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
+  <style>
+    /* Mengubah background stat card dan panel menu tombol menjadi soft pink */
+    .stat-card, 
+    .stats-grid .panel {
+      background-color: #FFF0F2 !important;
+      border: 1px solid #FFE1E6 !important;
+      transition: transform 0.2s ease, background-color 0.2s ease !important;
+    }
+
+    /* Mengubah warna font teks utama/angka di dalam kolom menjadi pink tua */
+    .stat-card-num,
+    .stats-grid .panel div[style*="font-weight:700"],
+    .stats-grid .panel[id="logoutCard"] div[style*="font-weight:700"] {
+      color: #C44D64 !important;
+    }
+
+    /* Mengubah warna icon di dalam menu panel menjadi pink tua agar senada */
+    .stats-grid .panel div svg {
+      color: #C44D64 !important;
+    }
+
+    /* Efek interaksi ketika menu tombol disorot (hover) */
+    .stats-grid .panel:hover {
+      background-color: #FFE1E6 !important;
+      transform: translateY(-2px);
+    }
+
+    /* Memastikan panel tabel utama (Produk Terbaru) tetap berwarna putih agar kontras */
+    .admin-main .panel:not(.stats-grid .panel) {
+      background-color: #FFFFFF !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="admin-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="../../assets/Logo.png" alt="Admin Logo" style="height: 45px; width: 45px; object-fit: contain; margin-right: 8px; transform: translateY(2px);">
+      <div>
+        <div class="sidebar-logo-text">Tinov<span style="color:var(--pink-primary)">Beauty</span></div>
+        <div class="sidebar-logo-sub">Admin</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Menu</div>
+      <a class="sidebar-link active" href="dashboard.html">
+        Dashboard
+      </a>
+      <a class="sidebar-link" href="manage-products.html">
+        Kelola Produk
+        <span class="badge-count" id="productCount">0</span>
+      </a>
+      <div class="nav-section-label" style="margin-top:8px;">Lainnya</div>
+      <a class="sidebar-link" href="../../index.html" target="_blank">
+        Lihat Katalog
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <div>
+          <div class="user-name" id="userName">Admin</div>
+          <div class="user-role">Administrator</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <button class="sidebar-link" id="logoutBtn" style="color:#1E1E1E; width:100%; display:flex; align-items:center; gap:8px; background:none; border:none; cursor:pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:1.15rem; height:1.15rem;"><path d="M4 18H6V20H18V4H6V6H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V18ZM6 11H13V13H6V16L1 12L6 8V11Z"></path></svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn btn-ghost btn-icon" id="sidebarToggle" style="display:none;">☰</button>
+        <div>
+          <div class="topbar-title">Dashboard</div>
+          <div class="topbar-breadcrumb">Tinov Beauty › Dashboard</div>
+        </div>
+      </div>
+      <div class="topbar-right"></div>
+    </header>
+
+    <div class="page-content">
+      <div class="page-header">
+        <div class="page-title">Selamat datang kembali 👋</div>
+        <div class="page-sub" id="welcomeMsg">Ringkasan data salon Anda</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statTotal">–</div>
+            <div class="stat-card-label">Total Produk</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statLash">–</div>
+            <div class="stat-card-label">Lash & Brow</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statNail">–</div>
+            <div class="stat-card-label">Nail Art</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statKursus">–</div>
+            <div class="stat-card-label">Kursus</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid" style="margin-bottom:28px;">
+        <div class="panel" style="padding:28px; text-align:center; cursor:pointer; display:flex; flex-direction:column; align-items:center;" onclick="location.href='manage-products.html'">
+          <div style="margin-bottom:10px; color:var(--dark); display:flex; align-items:center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:2.2rem; height:2.2rem;"><path d="M2 4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4ZM4 5V19H20V5H4ZM6 7H8V9H6V7ZM8 11H6V13H8V11ZM6 15H8V17H6V15ZM18 7H10V9H18V7ZM10 15H18V17H10V15ZM18 11H10V13H18V11Z"></path></svg>
+          </div>
+          <div style="font-weight:700; color:var(--dark); margin-bottom:4px;">Kelola Produk</div>
+          <div style="font-size:.82rem; color:var(--gray-600);">Tambah, edit, hapus produk</div>
+        </div>
+        
+        <div class="panel" style="padding:28px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.open('../../index.html','_blank')">
+          <div style="margin-bottom:10px; color:var(--dark); display:flex; align-items:center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:2.2rem; height:2.2rem;"><path d="M3.52561 3.5254C4.89246 2.15872 7.10805 2.15861 8.47483 3.5254L8.64671 3.6963C8.84198 3.89145 9.15851 3.89152 9.35374 3.6963L9.52561 3.5254C10.8082 2.24294 12.8376 2.16412 14.2131 3.28809L12.9475 4.83594C12.3592 4.35525 11.4888 4.39054 10.9397 4.93946L10.7678 5.11133C9.7916 6.08721 8.20889 6.08713 7.23265 5.11133L7.06077 4.93946C6.47504 4.35373 5.52548 4.35383 4.93968 4.93946C4.35389 5.52525 4.35389 6.47477 4.93968 7.06055L5.11155 7.23243C6.0873 8.20862 6.08727 10.7676 5.11155 10.7676L4.93968 10.9395C4.35389 11.5252 4.35389 12.4748 4.93968 13.0606L5.11155 13.2324C6.0873 14.2086 6.08727 15.7914 5.11155 16.7676L4.93968 16.9395C4.35389 17.5252 4.35389 18.4748 4.93968 19.0606C5.52547 19.6462 6.47502 19.6463 7.06077 19.0606L7.23265 18.8887C8.20889 17.9129 9.79162 17.9128 10.7678 18.8887L10.9397 19.0606C11.5255 19.6462 12.475 19.6463 13.0608 19.0606L13.2326 18.8887C14.2089 17.9129 15.7916 17.9128 16.7678 18.8887L16.9397 19.0606C17.5255 19.6462 18.475 19.6463 19.0608 19.0606C19.6464 18.4748 19.6464 17.5252 19.0608 16.9395L18.8889 16.7676C17.913 15.7914 17.913 14.2087 18.8889 13.2324L19.0608 13.0606C19.6097 12.5115 19.6449 11.641 19.1643 11.0527L20.7121 9.78712C21.836 11.1626 21.7573 13.192 20.4748 14.4746L20.3039 14.6465C20.1087 14.8418 20.1087 15.1583 20.3039 15.3535L20.4748 15.5254C21.8415 16.8922 21.8415 19.1078 20.4748 20.4746C19.108 21.8414 16.8925 21.8413 15.5256 20.4746L15.3537 20.3037C15.1585 20.1085 14.842 20.1086 14.6467 20.3037L14.4748 20.4746C13.108 21.8414 10.8925 21.8413 9.52561 20.4746L9.35374 20.3037C9.15853 20.1085 8.84198 20.1086 8.64671 20.3037L8.47483 20.4746C7.10803 21.8414 4.89246 21.8413 3.52561 20.4746C2.15878 19.1078 2.15878 16.8922 3.52561 15.5254L3.69651 15.3535C3.89158 15.1583 3.89161 14.8417 3.69651 14.6465L3.69651 14.6465L3.52561 14.4746C2.15878 13.1078 2.15878 10.8922 3.52561 9.5254L3.69651 9.35352C3.89158 9.15828 3.89161 8.84171 3.69651 8.64649L3.52561 8.47462C2.15878 7.10778 2.15878 4.89223 3.52561 3.5254ZM14.5002 7.50001C15.6047 7.50015 16.5002 8.39555 16.5002 9.50001V14.5C16.5002 15.6045 15.6047 16.4999 14.5002 16.5H9.50022C8.39565 16.5 7.50022 15.6046 7.50022 14.5V9.50001C7.50025 8.39546 8.39567 7.50001 9.50022 7.50001H14.5002ZM9.50022 14.5H14.5002V9.50001H9.50022V14.5ZM18.5295 1.31934C18.7062 0.89362 19.2945 0.893484 19.4709 1.31934L19.7239 1.93067C20.1558 2.97354 20.9617 3.8062 21.9748 4.25684L22.6916 4.57618C23.1024 4.75887 23.1024 5.35638 22.6916 5.53907L21.9319 5.87696C20.9442 6.3163 20.1526 7.11944 19.7131 8.12794L19.467 8.69337C19.2866 9.1075 18.7136 9.1075 18.5334 8.69337L18.2864 8.12794C17.8468 7.11943 17.0553 6.31625 16.0676 5.87696L15.3078 5.53907C14.8974 5.35629 14.8973 4.7589 15.3078 4.57618L16.0256 4.25684C17.0386 3.80616 17.8438 2.9734 18.2756 1.93067L18.5295 1.31934Z"></path></svg>
+          </div>
+          <div style="font-weight:700;color:var(--dark);margin-bottom:4px;">Lihat Katalog</div>
+          <div style="font-size:.82rem;color:var(--gray-600);">Tampilan yang dilihat pengunjung</div>
+        </div>
+        
+        <div class="panel" style="padding:28px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="location.href='manage-products.html#add'">
+          <div style="margin-bottom:10px; color:var(--dark); display:flex; align-items:center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:2.2rem; height:2.2rem;"><path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"></path></svg>
+          </div>
+          <div style="font-weight:700;color:var(--dark);margin-bottom:4px;">Tambah Produk Baru</div>
+          <div style="font-size:.82rem;color:var(--gray-600);">Upload produk atau layanan baru</div>
+        </div>
+
+        <div class="panel" style="padding:28px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;" id="logoutCard">
+          <div style="margin-bottom:10px; color:#1E1E1E; display:flex; align-items:center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:2.2rem; height:2.2rem;"><path d="M4 18H6V20H18V4H6V6H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V18ZM6 11H13V13H6V16L1 12L6 8V11Z"></path></svg>
+          </div>
+          <div style="font-weight:700;color:#1E1E1E;margin-bottom:4px;">Logout</div>
+          <div style="font-size:.82rem;color:var(--gray-600);">Keluar dari panel admin</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Produk Terbaru</div>
+          <a href="manage-products.html" class="btn btn-primary btn-sm" style="background: #E8748A !important; border: 1px solid #E8748A !important; color: #FFFFFF !important; border-radius: 100px; padding: 6px 16px; font-weight: 600; font-size: 0.82rem; text-decoration: none; transition: opacity 0.2s;">Kelola Semua</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Foto</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th>
+              </tr>
+            </thead>
+            <tbody id="recentTable">
+              <tr><td colspan="4" style="text-align:center;padding:24px;color:var(--gray-400);">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, collection, getDocs, query, orderBy }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // Konfigurasi Firebase Anda
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkvyqtIRlRtGCbyuny0drmALLWFTkhzQQ",
+    authDomain: "tinovbeauty.firebaseapp.com",
+    databaseURL: "https://tinovbeauty-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tinovbeauty",
+    storageBucket: "tinovbeauty.firebasestorage.app",
+    messagingSenderId: "30816292453",
+    appId: "1:30816292453:web:0786c87ddf8df86204808c",
+    measurementId: "G-WLFCVJ1WLX"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // ── Auth guard: kalau belum login, kick ke login page ──
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      window.location.replace('login.html');
+      return;
+    }
+    const initials = (user.email||'A')[0].toUpperCase();
+    document.getElementById('userAvatar').textContent = initials;
+    document.getElementById('userName').textContent   = user.displayName || user.email;
+    document.getElementById('welcomeMsg').textContent = `Halo, ${user.displayName || user.email}!`;
+    loadStats();
+  });
+
+  function formatHarga(n) {
+    const num = Number(String(n).replace(/\D/g,''));
+    return isNaN(num) ? n : 'Rp ' + num.toLocaleString('id-ID');
+  }
+
+  // DI SINI ADALAH TEMPAT PERBAIKAN IKON BULU MATA ASLI UNTUK KATEGORI LASH & BROW DI DALAM TABEL DASHBOARD ADMIN
+  function catEmoji(cat) {
+    const style = `width: 18px; height: 18px; color: var(--pink-primary); display: block;`;
+    if (cat === 'Lash & Brow') {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="${style}"><path d="M9.34268 18.7819L7.41083 18.2642L8.1983 15.3254C7.00919 14.8874 5.91661 14.2498 4.96116 13.4534L2.80783 15.6067L1.39362 14.1925L3.54695 12.0392C2.35581 10.6103 1.52014 8.87466 1.17578 6.96818L3.14386 6.61035C3.90289 10.8126 7.57931 14.0001 12.0002 14.0001C16.4211 14.0001 20.0976 10.8126 20.8566 6.61035L22.8247 6.96818C22.4803 8.87466 21.6446 10.6103 20.4535 12.0392L22.6068 14.1925L21.1926 15.6067L19.0393 13.4534C18.0838 14.2498 16.9912 14.8874 15.8021 15.3254L16.5896 18.2642L14.6578 18.7819L13.87 15.8418C13.2623 15.9459 12.6376 16.0001 12.0002 16.0001C11.3629 16.0001 10.7381 15.9459 10.1305 15.8418L9.34268 18.7819Z"></path></svg>`;
+    }
+    if (cat === 'Kursus') {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="font-size: 1.15rem; color: var(--pink-primary);"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M20 15c0 1.864 0 2.796-.304 3.53a4 4 0 0 1-2.165 2.165C16.796 21 15.864 21 14 21h-3c-3.772 0-5.658 0-6.83-1.172C3 18.657 3 16.771 3 13V7a4 4 0 0 1 4-4"/><path d="m10 8.5l.434 3.969a4 .94 0 0 0 .552.753c.686.295 1.971.778 3.014.778s2.328-.483 3.014-.778a4 .94 0 0 0 .553-.753L18 8.5m2.5-1v3.77M14 4L7 7l7 3l7-3z"/></g></svg>`;
+    }
+    if (cat === 'Nail Art') {
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" style="font-size: 1.15rem; color: var(--pink-primary);"><path d="M0 0h48v48H0z" fill="none"/><g fill="none"><path stroke="currentColor" stroke-width="4" d="M18.895 5.89A2 2 0 0 1 20.892 4h6.216a2 2 0 0 1 1.997 1.89l.778 14A2 2 0 0 1 27.886 22h-7.772a2 2 0 0 1-1.997-2.11zM11 28a6 6 0 0 1 6-6h14a6 6 0 0 1 6 6v13a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z"/><circle cx="24" cy="33" r="3" fill="currentColor"/></g></svg>`;
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="${style}"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V11H17V13H13V17H11V13H7V11H11V7Z"></path></svg>`;
+  }
+
+  async function loadStats() {
+    try {
+      const snap = await getDocs(query(collection(db,'products'), orderBy('createdAt','desc')));
+      const products = snap.docs.map(d=>({id:d.id,...d.data()}));
+
+      document.getElementById('statTotal').textContent  = products.length;
+      document.getElementById('statLash').textContent   = products.filter(p=>p.kategori==='Lash & Brow').length;
+      document.getElementById('statNail').textContent   = products.filter(p=>p.kategori==='Nail Art').length;
+      document.getElementById('statKursus').textContent = products.filter(p=>p.kategori==='Kursus').length;
+      document.getElementById('productCount').textContent = products.length;
+
+      const tbody = document.getElementById('recentTable');
+      const recent = products.slice(0,5);
+      if (!recent.length) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--gray-400);">Belum ada produk.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = recent.map(p=>`
+        <tr>
+          <td>${p.imageUrl
+            ? `<img src="${p.imageUrl}" class="table-img"/>`
+            : `<div class="table-img-placeholder" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #fff0f2; border-radius: 8px;">${catEmoji(p.kategori)}</div>`}</td>
+          <td><div class="table-product-name">${p.nama}</div></td>
+          <td><span class="pill pill-pink">${p.kategori||'–'}</span></td>
+          <td class="table-price">${formatHarga(p.harga)}</td>
+        </tr>`).join('');
+    } catch(e) {
+      document.getElementById('recentTable').innerHTML =
+        `<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--gray-400);">Gagal memuat data.</td></tr>`;
+    }
+  }
+
+  // Logout
+  async function doLogout() {
+    await signOut(auth);
+    window.location.replace('login.html');
+  }
+  document.getElementById('logoutBtn').addEventListener('click', doLogout);
+  document.getElementById('logoutCard').addEventListener('click', doLogout);
+
+  // Mobile sidebar
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar       = document.getElementById('sidebar');
+  const overlay       = document.getElementById('sidebarOverlay');
+  if (window.innerWidth <= 768) sidebarToggle.style.display = '';
+  window.addEventListener('resize', () => {
+    sidebarToggle.style.display = window.innerWidth <= 768 ? '' : 'none';
+  });
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+</script>
+</body>
+</html>

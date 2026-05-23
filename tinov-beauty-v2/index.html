@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tinov Beauty Studio – Salon &amp; Beauty Catalog</title>
+  <meta name="description" content="Tinov Beauty Studio – layanan lash, brow, nail art premium."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💄</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+/* ============================================================
+   style.css - Tinov Beauty Studio
+   ============================================================ */
+
+:root {
+  --pink-primary: #E8748A;
+  --pink-light:   #F9D4DB;
+  --pink-soft:    #FFF0F2;
+  --pink-deep:    #C9506A;
+  --white:        #FFFFFF;
+  --gray-100:     #F7F7F7;
+  --gray-200:     #EFEFEF;
+  --gray-400:     #BDBDBD;
+  --gray-600:     #757575;
+  --gray-800:     #3A3A3A;
+  --dark:         #1E1E1E;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    24px;
+  --shadow-card:  0 2px 16px rgba(0,0,0,0.07);
+  --shadow-hover: 0 8px 32px rgba(232, 116, 138, 0.22);
+  --transition:   0.28s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--gray-800);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; object-fit: cover; }
+a   { text-decoration: none; color: inherit; }
+ul  { list-style: none; }
+
+/* ── Utility ── */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.section-sub {
+  color: var(--gray-600);
+  font-size: .95rem;
+  margin-bottom: 40px;
+  max-width: 540px;
+}
+.badge {
+  display: inline-block;
+  background: var(--pink-light);
+  color: var(--pink-deep);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--pink-primary);
+  color: var(--white);
+  box-shadow: 0 4px 18px rgba(232,116,138,.35);
+}
+.btn-primary:hover {
+  background: var(--pink-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232,116,138,.45);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--pink-primary);
+  border: 2px solid var(--pink-primary);
+}
+.btn-outline:hover { background: var(--pink-soft); transform: translateY(-2px); }
+.btn-sm   { padding: 8px 20px; font-size: .82rem; }
+.btn-full { width: 100%; justify-content: center; }
+
+/* ── Navbar ── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--pink-light);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* logo di tengah */
+  height: 68px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo-mark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--pink-primary), var(--pink-deep));
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 1.1rem;
+}
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+.nav-logo-text span { color: var(--pink-primary); }
+.nav-logo-text em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--dark);
+  text-transform: lowercase;
+  margin-left: 4px;
+}
+
+/* Semua elemen nav lain disembunyikan */
+.nav-links,
+.nav-right,
+.burger,
+.nav-drawer { display: none !important; }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(rgba(255, 240, 242, 0.75), rgba(255, 255, 255, 0.55)), url('assets/hero-bg.png') no-repeat center center;
+  background-size: cover;
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  display: none !important;
+}
+.hero-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero-content {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-desc { 
+  color: var(--gray-600); 
+  font-size: 1.05rem; 
+  margin-bottom: 36px; 
+  max-width: 620px;
+  text-align: center;
+  line-height: 1.6;
+}
+.hero-cta { 
+  display: flex; 
+  gap: 16px; 
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--pink-light);
+  color: var(--pink-deep);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-eyebrow span {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--pink-primary);
+  border-radius: 50%;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 18px;
+}
+.hero-title em { font-style: italic; color: var(--pink-primary); }
+.hero-desc { color: var(--gray-600); font-size: 1rem; margin-bottom: 32px; max-width: 420px; }
+.hero-cta  { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-stats {
+  display: flex;
+  gap: 28px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--pink-light);
+}
+.stat-item { text-align: center; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 180px 180px;
+  gap: 12px;
+}
+.hero-img-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--gray-200);
+}
+.hero-img-card:first-child {
+  grid-row: 1 / 3;
+  border-radius: var(--radius-lg);
+}
+.hero-img-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.hero-img-card:hover img { transform: scale(1.04); }
+
+/* ── Sections ── */
+.section      { padding: 72px 0; }
+.section-alt  { background: var(--gray-100); }
+.section-pink { background: var(--pink-soft); }
+
+.section-sub {
+  color: var(--gray-600);
+  font-size: .95rem;
+  margin-bottom: 0px;
+  max-width: 540px;
+}
+/* ── Features ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--pink-light) !important;
+  border: none !important;
+  border-radius: var(--radius-md);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: transparent !important;
+  opacity: 0 !important;
+  transition: var(--transition);
+}
+.feature-card:hover { 
+  transform: scale(1.02); 
+  box-shadow: var(--shadow-card); 
+}
+.feature-card:hover::before { opacity: 0 !important; }
+.feature-icon {
+  width: 52px; height: 52px;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-radius: var(--radius-sm);
+  display: grid; place-items: center;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+}
+.feature-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+.feature-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.feature-desc  { font-size: .88rem; color: var(--gray-600); line-height: 1.6; }
+
+/* ── Catalog ── */
+.catalog-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cat-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.cat-filter::-webkit-scrollbar { display: none; }
+.cat-btn {
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.cat-btn:hover  { border-color: var(--pink-primary); color: var(--pink-primary); }
+.cat-btn.active { background: var(--pink-primary); border-color: var(--pink-primary); color: var(--white); font-weight: 600; }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Skeleton */
+.skeleton-card {
+  height: 220px;
+  border-radius: 18px;
+  background-image: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Service Card (beauty_salon style) ── */
+.product-card {
+  background: var(--white);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 14px rgba(232,116,138,0.10);
+  border: 1.5px solid var(--pink-light);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: var(--transition);
+  animation: fadeUp 0.3s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(232,116,138,0.20);
+}
+
+/* Card header – gradient */
+.product-card-header {
+  background: linear-gradient(160deg, var(--pink-light) 0%, var(--pink-soft) 100%);
+  padding: 16px 14px 14px;
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.product-cat-tag {
+  display: inline-block;
+  background: var(--white);
+  color: var(--dark);
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 7px;
+  width: fit-content;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  letter-spacing: .04em;
+}
+.product-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+/* Card body */
+.product-card-body {
+  padding: 12px 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.product-desc {
+  font-size: .78rem;
+  color: var(--gray-600);
+  line-height: 1.55;
+  flex: 1;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.product-price {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+}
+.product-btn {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--pink-soft);
+  border: 1.5px solid var(--pink-light);
+  color: var(--pink-primary);
+  font-size: .9rem;
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: var(--transition);
+}
+.product-btn:hover { background: var(--pink-primary); color: var(--white); border-color: var(--pink-primary); }
+
+/* Placeholder icon (no image) */
+.product-img-placeholder {
+  display: none; /* no longer used in new card style */
+}
+
+/* Empty state */
+.empty-state { grid-column: 1/-1; text-align: center; padding: 60px 20px; }
+.empty-icon  { font-size: 3rem; margin-bottom: 16px; }
+.empty-title { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+.empty-desc  { color: var(--gray-600); font-size: .9rem; }
+
+/* ── About ── */
+.about-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.about-img-mosaic {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.about-img-box {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--gray-200);
+  height: 200px;
+}
+.about-img-box:first-child { grid-column: 1/3; height: 240px; border-radius: var(--radius-lg); }
+.about-values { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+.about-val {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--pink-soft);
+  border-radius: var(--radius-sm);
+}
+.about-val-icon { font-size: 1.3rem; }
+.about-val-text { font-size: .88rem; color: var(--gray-600); }
+.about-val-text strong { display: block; color: var(--dark); font-size: .92rem; margin-bottom: 2px; }
+
+/* ── Gallery ── */
+.gallery-grid { columns: 3; gap: 16px; }
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+}
+.gallery-item img { width: 100%; display: block; transition: transform .4s ease; }
+.gallery-item:hover img { transform: scale(1.04); }
+
+/* ── CTA Banner ── */
+.cta-banner {
+  background: linear-gradient(135deg, var(--pink-primary) 0%, var(--pink-deep) 100%);
+  border-radius: var(--radius-lg);
+  padding: 56px 48px;
+  text-align: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '✦';
+  position: absolute;
+  font-size: 180px;
+  color: rgba(255,255,255,.06);
+  right: -20px; top: -40px;
+  pointer-events: none;
+}
+.cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.5rem,3vw,2.2rem); margin-bottom: 12px; }
+.cta-banner p  { font-size: .95rem; opacity: .85; margin-bottom: 28px; }
+.cta-banner .btn-primary {
+  background: var(--white);
+  color: var(--pink-primary);
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+}
+.cta-banner .btn-primary:hover { transform: translateY(-2px); }
+
+/* ── Footer ── */
+.footer-bottom {
+  border-top: 1px solid var(--pink-light);
+  padding: 24px 0;
+  width: 100%;
+}
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .8rem;
+  color: var(--gray-600);
+}
+
+@media (max-width: 768px) {
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-brand .nav-logo-text { 
+  color: var(--dark); 
+  font-size: 1.2rem; 
+}
+.footer-brand .nav-logo-text em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--dark);
+  text-transform: lowercase;
+  margin-left: 4px;
+}
+
+.footer-desc { 
+  font-size: .86rem; 
+  line-height: 1.7; 
+  margin-top: 14px; 
+  max-width: 260px; 
+  color: var(--gray-600);
+}
+
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 16px;
+}
+
+.footer-col li { margin-bottom: 10px; }
+
+.footer-col a { 
+  font-size: .85rem; 
+  color: var(--gray-800);
+  transition: var(--transition); 
+}
+.footer-col a:hover { 
+  color: var(--pink-primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--pink-light);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  font-size: .8rem;
+  color: var(--gray-600);
+  width: 100%;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;               
+  align-items: center;         
+  justify-content: center;     
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+/* PERBAIKAN UTAMA: Membuat modal responsif & menambahkan fitur scroll jika isi deskripsi sangat panjang */
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.2);
+  transform: scale(.96) translateY(10px);
+  transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .25s;
+  opacity: 0;
+  overflow: hidden;
+  max-height: 90vh;            /* Membatasi tinggi maksimal modal agar tidak melebihi tinggi layar (90% layar) */
+  display: flex;               /* Mengubah layout modal menjadi flexbox container */
+  flex-direction: column;      /* Menyusun header, body, dan footer secara vertikal */
+}
+
+.modal-overlay.open .modal { transform: scale(1) translateY(0); opacity: 1; }
+.modal-header {
+  padding: 24px 28px 16px;     /* Menyesuaikan padding bawah agar jarak konsisten */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--pink-soft); /* Ditambahkan pembatas tipis agar rapi saat konten di-scroll */
+  flex-shrink: 0;              /* Memastikan bagian header tidak ikut menyusut/mengecil */
+}
+.modal-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
+.modal-close {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gray-100);
+  cursor: pointer;
+  font-size: 1rem;
+  display: grid; place-items: center;
+  transition: var(--transition);
+}
+.modal-close:hover { background: var(--gray-200); }
+
+/* PERBAIKAN UTAMA: Container isi modal yang bisa di-scroll */
+.modal-body { 
+  padding: 24px 28px 28px; 
+  overflow-y: auto;            /* Mengaktifkan fungsi scroll vertikal otomatis jika konten melewati batas tinggi maksimal */
+  flex-grow: 1;                /* Membiarkan body modal mengambil ruang yang tersedia secara dinamis */
+}
+
+/* Format Text Deskripsi Modal */
+#modalProductDesc {
+  white-space: pre-line;   /* Membaca line-breaks / enter dari admin panel */
+  word-break: break-word;  /* Mencegah tulisan keluar dari modal */
+  text-align: left;        /* Membuat susunan poin-poin teks rapi di kiri */
+}
+
+/* ── Toast ── */
+.toast-container {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--dark);
+  color: var(--white);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: .88rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  animation: toastIn .3s ease;
+  min-width: 260px;
+}
+.toast.success { border-left: 4px solid #22c55e; }
+.toast.error   { border-left: 4px solid #ef4444; }
+@keyframes toastIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-inner  { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 440px; }
+  .hero-grid   { grid-template-rows: 160px 160px; }
+}
+@media (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .about-strip   { grid-template-columns: 1fr; }
+  .gallery-grid  { columns: 2; }
+  .footer-grid   { grid-template-columns: 1fr; gap: 24px; }
+  .cta-banner    { padding: 36px 24px; }
+  .hero-stats    { flex-wrap: wrap; gap: 16px; }
+}
+@media (max-width: 480px) {
+  .gallery-grid  { columns: 1; }
+  .products-grid { grid-template-columns: 1fr; }
+  .hero-grid     { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .hero-img-card:first-child { grid-column: 1; grid-row: 1; height: 220px; }
+}
+
+/* Penyelarasan letak teks copyright ke tengah */
+section[style*="background: #FFF0F2"] .container {
+  justify-content: center !important;  
+  text-align: center !important;       
+}
+
+/* ── Gallery Tabs ── */
+.gallery-tab {
+  padding: 9px 26px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pink-light);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.gallery-tab:hover { border-color: var(--pink-primary); color: var(--pink-primary); }
+.gallery-tab.active {
+  background: var(--pink-primary);
+  border-color: var(--pink-primary);
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(232,116,138,.30);
+}
+.gallery-panel { animation: fadeUp .3s ease; }
+.gallery-item img { transition: transform .4s ease; }
+.gallery-item:hover img { transform: scale(1.04); }
+  </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/Logo.png" alt="Tinov Beauty Logo" style="height: 55px; width: auto; object-fit: contain; transform: translateY(5px);">
+      <div class="nav-logo-text" style="font-size: 1.3rem;">Tinov<span style="color: var(--pink-primary);">Beauty</span><em>Studio</em></div>
+    </a>
+  </div>
+</nav>
+
+<section class="hero" id="beranda">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span></span>A Place Where Beauty Meets Precision</div>
+      <h1 class="hero-title">
+        Beauty Studio untuk<br/>
+        <em>Mereka yang Menghargai</em><br/>
+        Keindahan Sejati
+      </h1>
+      <p class="hero-desc">Di Tinov Beauty Studio, setiap layanan dirancang untuk memberikan kecantikan yang tahan lama, percaya diri, dan natural sesuai karakter Anda.</p>
+      <div class="hero-cta">
+        <a href="#layanan" class="btn btn-primary">Jelajahi Layanan</a>
+        <a href="#tentang" class="btn btn-outline">Tentang Kami</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="color: var(--pink-primary);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.7134 7.12811L4.46682 7.69379C4.28637 8.10792 3.71357 8.10792 3.53312 7.69379L3.28656 7.12811C2.84706 6.11947 2.05545 5.31641 1.06767 4.87708L0.308047 4.53922C-0.102682 4.35653 -0.102682 3.75881 0.308047 3.57612L1.0252 3.25714C2.03838 2.80651 2.84417 1.97373 3.27612 0.930828L3.52932 0.319534C3.70578 -0.106511 4.29417 -0.106511 4.47063 0.319534L4.72382 0.930828C5.15577 1.97373 5.96158 2.80651 6.9748 3.25714L7.69188 3.57612C8.10271 3.75881 8.10271 4.35653 7.69188 4.53922L6.93228 4.87708C5.94451 5.31641 5.15288 6.11947 4.7134 7.12811ZM6.33421 15.8154C6.51032 15.233 6.7072 14.6562 6.93912 14.0327C8.99484 8.50636 12.4197 5.08172 18.0129 4.21479C17.5 5.35838 17.0151 6.15301 16.5858 6.58237C16.2521 6.91603 15.9185 7.24993 15.5848 7.58407L14.1721 8.99878L15.6279 10.4535C14.4976 12.5384 12.2652 14.1979 9.75193 14.512C8.43544 14.6766 7.29345 15.1188 6.33421 15.8154ZM18 9.99658L17 8.99728C17.3331 8.66372 17.6662 8.33039 18.0027 7.99391C19.0018 6.99303 20.0009 4.99392 21 1.99658C6.31105 1.99658 4.08854 15.422 3.06361 21.6132C3.0419 21.7443 3.02074 21.8722 3 21.9966H4.99824C5.66421 18.6635 7.33146 16.8301 10 16.4966C14 15.9966 17 12.9966 18 9.99658Z"></path></svg>
+        </div>
+        <div class="feature-title">Sangat Detail</div>
+        <div class="feature-desc">Setiap sentuhan dikerjakan dengan presisi dan penuh perhatian untuk hasil yang sempurna.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="color: var(--pink-primary);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.4668 8.69379L19.7134 8.12811C20.1529 7.11947 20.9445 6.31641 21.9323 5.87708L22.6919 5.53902C23.1027 5.35653 23.1027 4.75881 22.6919 4.57612L21.9748 4.25714C20.9616 3.80651 20.1558 2.97373 19.7238 1.93083L19.4706 1.31953C19.2942 0.893489 18.7058 0.893489 18.5293 1.31953L18.2761 1.93083C17.8442 2.97373 17.0384 3.80651 16.0252 4.25714L15.3081 4.57612C14.8973 4.75881 14.8973 5.35653 15.3081 5.53902L16.0677 5.87708C17.0555 6.31641 17.8471 7.11947 18.2866 8.12811L18.5331 8.69339C18.7136 9.10792 18.2864 9.10792 19.4668 8.69379ZM5 6C4.68525 6 4.38886 6.14819 4.2 6.4L1.2 10.4C0.913337 10.7822 0.937093 11.3138 1.25671 11.669L10.2567 21.669C10.4464 21.8797 10.7165 22 11 22C11.2835 22 11.5537 21.8797 11.7433 21.669L20.7433 11.669L19.2567 10.331L11 19.5052L3.29335 10.9422L5.5 8H14V6H5Z"></path></svg>
+        </div>
+        <div class="feature-title">Produk Premium</div>
+        <div class="feature-desc">Kami hanya menggunakan bahan-bahan berkualitas tinggi yang aman untuk kulit dan tahan lama.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="color: var(--pink-primary);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.00488 9.00268C5.55717 9.00268 6.00488 9.45039 6.00488 10.0027C7.63965 10.0027 9.14352 10.5631 10.3349 11.5022L12.5049 11.5027C13.837 11.5027 15.0339 12.0815 15.8579 13.0014L19.0049 13.0027C20.9972 13.0027 22.7173 14.1679 23.521 15.8541C21.1562 18.9747 17.3268 21.0027 13.0049 21.0027C10.2142 21.0027 7.85466 20.3994 5.944 19.3447C5.80557 19.7283 5.43727 20.0027 5.00488 20.0027H2.00488C1.4526 20.0027 1.00488 19.555 1.00488 19.0027V10.0027C1.00488 9.45039 1.4526 9.00268 2.00488 9.00268H5.00488ZM6.00589 12.0027L6.00488 17.0238L6.05024 17.0572C7.84406 18.3176 10.183 19.0027 13.0049 19.0027C16.0089 19.0027 18.8035 17.847 20.84 15.8732L20.9729 15.7397L20.8537 15.6393C20.3897 15.2763 19.8205 15.051 19.2099 15.0096L19.0049 15.0027L16.8932 15.0017C16.9663 15.3236 17.0049 15.6586 17.0049 16.0027V17.0027H8.00488V15.0027L14.7949 15.0017L14.7605 14.9232C14.38 14.1296 13.593 13.568 12.6693 13.508L12.5049 13.5027L9.57547 13.5027L6.00589 12.0027ZM4.00488 11.0027H3.00488V18.0027H4.00488V11.0027ZM13.6513 3.57806L14.0046 3.93183L14.3584 3.57806C15.3347 2.60175 16.9177 2.60175 17.894 3.57806C18.8703 4.55437 18.8703 6.13728 17.894 7.11359L14.0049 11.0027L10.1158 7.11359C9.13948 6.13728 9.13948 4.55437 10.1158 3.57806C11.0921 2.60175 12.675 2.60175 13.6513 3.57806ZM11.53 4.99227C11.3564 5.16584 11.3372 5.43526 11.4714 5.62938L11.5289 5.69831L14.0039 8.17368L16.4798 5.69938C16.6533 5.52581 16.6726 5.25639 16.5376 5.06152L16.4798 4.99227C16.3062 4.81871 16.0368 4.79942 15.8417 4.93457L15.7724 4.99249L14.0033 6.76111L12.236 4.9912L12.1679 4.93442C11.973 4.79942 11.7036 4.81871 11.53 4.99227Z"></path></svg>
+        </div>
+        <div class="feature-title">Pengalaman yang Nyaman</div>
+        <div class="feature-desc">Suasana studio yang nyaman dan hangat membuat Anda merasa santai dan dimanjakan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-pink" id="layanan">
+  <div class="container">
+    <div class="catalog-header">
+      <div>
+        <div class="badge">Layanan Kami</div>
+        <h2 class="section-title">Jelajahi Layanan Kami</h2>
+        <p class="section-sub">Di Tinov Beauty Studio, setiap layanan dirancang dengan standar tertinggi.</p>
+      </div>
+    </div>
+    <div class="cat-filter" id="catFilter">
+      <button class="cat-btn active" data-cat="all">Semua</button>
+      <button class="cat-btn" data-cat="Lash &amp; Brow">Lash &amp; Brow</button>
+      <button class="cat-btn" data-cat="Nail Art">Nail Art</button>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tentang">
+  <div class="container">
+    <div class="about-strip">
+      
+<div class="about-img-mosaic" style="display: block; width: 100%; max-width: 380px; margin: 0 auto;">
+        <img src="assets/owner.png" alt="Owner Tinov Beauty Studio" style="
+          width: 100%; 
+          height: auto; 
+          aspect-ratio: 3 / 4; 
+          object-fit: cover; 
+          object-position: center 90%;
+          border-radius: 24px; 
+          box-shadow: 0 15px 35px rgba(219, 112, 147, 0.12);
+        ">
+      </div>
+
+      <div class="about-text">
+        <div class="badge" style="font-size: 1.1rem !important; padding: 6px 18px; margin-bottom: 14px;">Pendiri Kami</div>
+        <h2 class="section-title">Dari Wanita untuk Wanita</h2>
+        <p style="color:var(--gray-600);font-size:.95rem;line-height:1.8;margin-bottom:20px;">
+          Tinov Beauty Studio hadir dibangun oleh wanita, untuk wanita. Tinov Beauty Studio adalah ruang yang ramah and inspiratif di mana kreativitas, perhatian, dan keahlian bersatu untuk merayakan kecantikan dan keunikan Anda.
+        </p>        
+        <div class="about-values">
+          <div class="about-val">
+            <div class="about-val-text"><strong>Dibuat untuk perempuan</strong>Setiap gaya dirancang sesuai kepribadian Anda</div>
+          </div>
+          <div class="about-val">
+            <div class="about-val-text"><strong>Kecantikan yang Tahan Lama</strong>Teknik tepat and bahan berkualitas premium</div>
+          </div>
+          <div class="about-val">
+            <div class="about-val-text"><strong>Suasana Santai</strong>Perawatan di ruangan yang nyaman dan tenang</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-pink" id="galeri">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:12px;">
+      <div class="badge">Galeri</div>
+      <h2 class="section-title">Lihat Apa yang Akan Anda Dapatkan</h2>
+      <p class="section-sub" style="margin: 8px auto 28px; text-align:center; max-width:460px;">Silakan lihat galeri kami untuk melihat lebih banyak karya kami</p>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:10px; margin-bottom:32px; flex-wrap:wrap;">
+      <button class="gallery-tab active" data-tab="lash" onclick="switchGallery(this, 'lash')">Lash &amp; Brow</button>
+      <button class="gallery-tab" data-tab="nail" onclick="switchGallery(this, 'nail')">Nail Art</button>
+      <button class="gallery-tab" data-tab="kursus" onclick="switchGallery(this, 'kursus')">Kursus</button>
+    </div>
+
+    <div class="gallery-panel" id="gallery-lash" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 1.png" alt="Lash & Brow 1" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 2.png" alt="Lash & Brow 2" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 3.png" alt="Lash & Brow 3" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 4.png" alt="Lash & Brow 4" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 5.png" alt="Lash & Brow 5" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 6.png" alt="Lash & Brow 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 7.jpg" alt="Lash & Brow 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 8.jpg" alt="Lash & Brow 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/lash&brow 9.jpg" alt="Lash & Brow 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="gallery-nail" style="display:none; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail.jpg" alt="Nail Art 1" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 1.png" alt="Nail Art 2" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 2.png" alt="Nail Art 3" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 3.png" alt="Nail Art 4" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 4.jpg" alt="Nail Art 5" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 5.png" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 6.png" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 7.png" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 8.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 9.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 10.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 11.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 12.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 13.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 14.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 15.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 16.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 17.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 18.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/nail 19.jpg" alt="Nail Art 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+    </div>
+
+    <div class="gallery-panel" id="gallery-kursus" style="display:none; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 1.png" alt="Kursus 1" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 2.png" alt="Kursus 2" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 3.png" alt="Kursus 3" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 5.jpg" alt="Kursus 5" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 6.jpg" alt="Kursus 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item" style="overflow:hidden;border-radius:18px;">
+        <img src="assets/kursus 7.jpg" alt="Kursus 6" style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="kursus">
+  <div class="container">
+    <div class="badge">Kursus dan Sertifikasi</div>
+    <h2 class="section-title">Tinov Academy: Build Your Beauty Empire</h2>
+    
+    <p class="section-sub" style="color: var(--gray-600); font-size: .95rem; line-height: 1.8; margin-bottom: 24px !important; max-width: 100% !important;">
+      Dapatkan sertifikasi dan kuasai teknik beauty terkini dengan bimbingan mentor berpengalaman.
+    </p>
+    
+    <div class="products-grid" id="coursesGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Siap Tampil Lebih Cantik &amp; Percaya Diri?</h2>
+      <p>Bergabunglah dengan ratusan wanita yang sudah mempercayakan kecantikannya kepada kami.</p>
+    </div>
+  </div>
+</section>
+
+<div style="border-top: 1px solid var(--pink-primary); width: 100%; margin-top: 50px;"></div>
+
+<footer class="footer" style="padding: 56px 0 40px 0; background-color: var(--pink-soft); width: 100%; display: block;">
+  <div class="container" style="max-width: 1160px; margin: 0 auto; padding: 0 24px; box-sizing: border-box;">
+    <div class="footer-grid">
+      
+      <div class="footer-brand">
+        <a class="nav-logo" href="index.html" style="margin-bottom:14px; display:inline-flex; align-items:center; gap:10px;">
+          <img src="assets/Logo.png" alt="Tinov Beauty Logo" style="height: 70px; width: auto; object-fit: contain; transform: translateY(5px);">
+          <div class="nav-logo-text" style="font-size: 1.3rem; color: var(--dark); font-family: var(--font-display); font-weight:700;">Tinov<span style="color: var(--pink-primary);">Beauty</span><em>Studio</em></div>
+        </a>
+        <p class="footer-desc">Di Tinov Beauty Studio, kami percaya setiap wanita berhak mendapatkan kecantikan terbaik yang tahan lama and memancarkan kepercayaan diri.</p>
+      </div>
+      <div class="footer-col" style="justify-self: end; display: flex; flex-direction: column; align-items: flex-start; min-width: 150px;">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#tentang">Tentang</a></li>
+          <li><a href="#layanan">Layanan</a></li>
+          <li><a href="#galeri">Galeri</a></li>
+          <li><a href="#kursus">Kursus</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer> 
+
+<section style="border-top: 1px solid var(--pink-primary); padding: 24px 0; width: 100%; background: #FFF0F2; display: block; clear: both;">
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: var(--gray-600); width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px; box-sizing: border-box;">
+    
+    <span style="white-space: nowrap;">©️ 2023 Tinov Beauty Studio. Code Yeoja Group.</span>
+    
+  </div>
+</section>
+
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalProductName">Nama Produk</h3>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalProductImg" style="width:100%;height:220px;border-radius:10px;overflow:hidden;margin-bottom:16px;background:var(--gray-100);"></div>
+      <div class="badge" id="modalProductCat">Kategori</div>
+      <p style="color:var(--gray-600);font-size:.92rem;line-height:1.75;margin:12px 0 16px;" id="modalProductDesc"></p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--pink-primary);" id="modalProductPrice"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCkvyqtIRlRtGCbyuny0drmALLWFTkhzQQ",
+    authDomain: "tinovbeauty.firebaseapp.com",
+    databaseURL: "https://tinovbeauty-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tinovbeauty",
+    storageBucket: "tinovbeauty.firebasestorage.app",
+    messagingSenderId: "30816292453",
+    appId: "1:30816292453:web:0786c87ddf8df86204808c",
+    measurementId: "G-WLFCVJ1WLX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  let allProducts    = [];
+  let activeCategory = 'all';
+
+  function formatHarga(num) {
+    const n = Number(String(num).replace(/\D/g,''));
+    return isNaN(n) ? 'Hubungi kami' : 'Rp ' + n.toLocaleString('id-ID');
+  }
+
+  function getCatEmoji(cat) {
+    return {
+      'Lash & Brow': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="font-size: 3.5rem; color: var(--pink-primary); width: 1em; height: 1em;"><path d="M9.34268 18.7819L7.41083 18.2642L8.1983 15.3254C7.00919 14.8874 5.91661 14.2498 4.96116 13.4534L2.80783 15.6067L1.39362 14.1925L3.54695 12.0392C2.35581 10.6103 1.52014 8.87466 1.17578 6.96818L3.14386 6.61035C3.90289 10.8126 7.57931 14.0001 12.0002 14.0001C16.4211 14.0001 20.0976 10.8126 20.8566 6.61035L22.8247 6.96818C22.4803 8.87466 21.6446 10.6103 20.4535 12.0392L22.6068 14.1925L21.1926 15.6067L19.0393 13.4534C18.0838 14.2498 16.9912 14.8874 15.8021 15.3254L16.5896 18.2642L14.6578 18.7819L13.87 15.8418C13.2623 15.9459 12.6376 16.0001 12.0002 16.0001C11.3629 16.0001 10.7381 15.9459 10.1305 15.8418L9.34268 18.7819Z"></path></svg>`,
+      'Nail Art': `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" style="font-size: 3.5rem; color: var(--pink-primary);"><path d="M0 0h48v48H0z" fill="none"/><g fill="none"><path stroke="currentColor" stroke-width="4" d="M18.895 5.89A2 2 0 0 1 20.892 4h6.216a2 2 0 0 1 1.997 1.89l.778 14A2 2 0 0 1 27.886 22h-7.772a2 2 0 0 1-1.997-2.11zM11 28a6 6 0 0 1 6-6h14a6 6 0 0 1 6 6v13a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z"/><circle cx="24" cy="33" r="3" fill="currentColor"/></g></svg>`,
+      'Kursus': `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="font-size: 3.5rem; color: var(--pink-primary);"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M20 15c0 1.864 0 2.796-.304 3.53a4 4 0 0 1-2.165 2.165C16.796 21 15.864 21 14 21h-3c-3.772 0-5.658 0-6.83-1.172C3 18.657 3 16.771 3 13V7a4 4 0 0 1 4-4"/><path d="m10 8.5l.434 3.969a4 .94 0 0 0 .552.753c.686.295 1.971.778 3.014.778s2.328-.483 3.014-.778a4 .94 0 0 0 .553-.753L18 8.5m2.5-1v3.77M14 4L7 7l7 3l7-3z"/></g></svg>`
+    }[cat] || '✨';
+  }
+
+  function renderProducts(products, gridId) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    if (!products.length) {
+      grid.innerHTML = `<div class="empty-state">
+        <div class="empty-title">Belum ada layanan</div>
+        <div class="empty-desc">Segera hadir.</div>
+      </div>`;
+      return;
+    }
+    grid.innerHTML = products.map(p => `
+      <div class="product-card" onclick="openModal('${p.id}')">
+        <div class="product-card-header">
+          <span class="product-cat-tag">${p.kategori || 'Layanan'}</span>
+          <div class="product-name">${p.nama}</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-desc">${p.deskripsi || ''}</div>
+          <div class="product-footer">
+            <div class="product-price">${formatHarga(p.harga)}</div>
+            <button class="product-btn">→</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function filterProducts() {
+    const filtered = activeCategory === 'all'
+      ? allProducts.filter(p => p.kategori !== 'Kursus')
+      : allProducts.filter(p => p.kategori === activeCategory);
+    renderProducts(filtered, 'productsGrid');
+    renderProducts(allProducts.filter(p => p.kategori === 'Kursus'), 'coursesGrid');
+  }
+
+  async function loadProducts() {
+    document.getElementById('productsGrid').innerHTML = '';
+    try {
+      const snap = await getDocs(query(collection(db,'products'), orderBy('createdAt','desc')));
+      allProducts = snap.docs.map(d => ({'id':d.id,...d.data()}));
+      filterProducts();
+    } catch(e) {
+      loadDemo();
+    }
+  }
+
+  function loadDemo() {
+    allProducts = [
+      {id:'1',nama:'Single/Natural Lash',kategori:'Lash & Brow',deskripsi:'Tampilan natural yang sempurna untuk keseharian Anda.',harga:115000},
+      {id:'2',nama:'Russian Lash Premium',kategori:'Lash & Brow',deskripsi:'Volume dramatis ala artis dengan teknik Russian volume.',harga:200000},
+      {id:'3',nama:'Double Eyelash',kategori:'Lash & Brow',deskripsi:'Kombinasi dua lapis lash untuk efek mata lebih besar.',harga:150000},
+      {id:'4',nama:'Lash Lift + Tint',kategori:'Lash & Brow',deskripsi:'Angkat bulu mata asli dan tambah warna gelap alami.',harga:115000},
+      {id:'5',nama:'Nail Art Basic',kategori:'Nail Art',deskripsi:'Desain nail art cantik dan tahan lama.',harga:75000},
+      {id:'6',nama:'Cat Eye Nails',kategori:'Nail Art',deskripsi:'Efek cat eye magnet yang memukau dan elegan.',harga:150000},
+      {id:'7',nama:'Brow Lamination',kategori:'Lash & Brow',deskripsi:'Alis tertata rapi tahan lama hingga 6–8 minggu.',harga:150000},
+      {id:'8',nama:'Kursus Nail Art',kategori:'Kursus',deskripsi:'Kuasai seni nail art profesional. Sertifikat termasuk.',harga:1800000},
+      {id:'9',nama:'Kursus Eyelash',kategori:'Kursus',deskripsi:'Teknik pasang eyelash dari dasar hingga mahir.',harga:1800000},
+    ];
+    filterProducts();
+  }
+
+  window.openModal = function(id) {
+    const p = allProducts.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('modalProductName').textContent  = p.nama;
+    document.getElementById('modalProductCat').textContent   = p.kategori || 'Layanan';
+    document.getElementById('modalProductDesc').textContent  = p.deskripsi || '';
+    document.getElementById('modalProductPrice').textContent = formatHarga(p.harga);
+    
+    document.getElementById('modalProductImg').innerHTML = p.imageUrl
+      ? `<img src="${p.imageUrl}" style="width:100%;height:100%;object-fit:cover;"/>`
+      : `<div class="product-img-placeholder" style="height:100%;font-size:1rem; display:flex; align-items:center; justify-content:center;">${getCatEmoji(p.kategori)}</div>`;
+    
+    document.getElementById('productModal').classList.add('open');
+  };
+
+  document.getElementById('modalClose').onclick = () =>
+    document.getElementById('productModal').classList.remove('open');
+  document.getElementById('productModal').onclick = e => {
+    if (e.target === document.getElementById('productModal'))
+      document.getElementById('productModal').classList.remove('open');
+  };
+
+  document.getElementById('catFilter').addEventListener('click', e => {
+    const btn = e.target.closest('.cat-btn');
+    if (!btn) return;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.cat;
+    filterProducts();
+  });
+
+  loadProducts();
+
+  window.switchGallery = function(btn, tab) {
+    // Update tab aktif
+    document.querySelectorAll('.gallery-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Sembunyikan semua panel, tampilkan yang dipilih
+    document.querySelectorAll('.gallery-panel').forEach(p => {
+      p.style.display = 'none';
+    });
+    const panel = document.getElementById('gallery-' + tab);
+    if (panel) {
+      panel.style.display = 'grid';
+    }
+  };
+</script>
+</body>
+</html>

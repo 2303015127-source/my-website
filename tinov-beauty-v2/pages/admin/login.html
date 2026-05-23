@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tinov Beauty – Admin Login</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  
+  <style>
+/* ============================================================
+   login.css - Halaman Login Admin Centered Card Elegan
+   ============================================================ */
+
+:root {
+  --pink-primary: #E8748A;
+  --pink-light:   #F9D4DB;
+  --pink-soft:    #FFF0F2;
+  --pink-deep:    #C9506A;
+  --white:        #FFFFFF;
+  --gray-200:     #EEEEEE;
+  --gray-600:     #757575;
+  --gray-800:     #3A3A3A;
+  --dark:         #1E1E1E;
+  
+  /* PERBAIKAN FONT: Setelan font baru yang lebih premium */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+  
+  --radius-md:    14px;
+  --radius-lg:    24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #FFEBEF 0%, #F9D4DB 100%);
+  padding: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Wadah Card Login Elegan Terpusat */
+.login-card-container {
+  width: 100%;
+  max-width: 440px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(232, 116, 138, 0.12);
+}
+
+/* Header Atas Card Berwarna Pink Gradient Halus */
+.login-card-header {
+  background: linear-gradient(135deg, #FFB7C5 0%, var(--pink-primary) 100%);
+  padding: 38px 32px;
+  text-align: center;
+  position: relative;
+}
+
+/* Lingkaran Ikon Perisai */
+.login-card-icon-circle {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--white);
+}
+.login-card-icon-circle svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.login-card-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 2px;
+  letter-spacing: 0.02em;
+}
+.login-card-sub {
+  font-size: .85rem;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Area Form Di Bagian Bawah Card */
+.login-card-body {
+  padding: 40px 36px 36px;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--gray-800);
+  letter-spacing: 0.03em;
+}
+.input-wrap { position: relative; }
+
+/* Input Minimalis Ber-padding Kiri Rapat */
+.form-input {
+  width: 100%;
+  padding: 13px 42px 13px 14px; 
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: var(--dark);
+  outline: none;
+  background-color: #fafafa;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.form-input:focus {
+  background-color: var(--white);
+  border-color: var(--pink-primary);
+  box-shadow: 0 0 0 3px rgba(232,116,138,.1);
+}
+
+/* Tombol Mata Intip */
+.toggle-pw {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toggle-pw svg {
+  width: 18px !important;
+  height: 18px !important;
+  fill: var(--gray-600);
+  transition: fill .2s;
+}
+.toggle-pw:hover svg { fill: var(--pink-primary); }
+
+.form-error {
+  display: none;
+  font-size: .78rem;
+  color: #dc2626;
+  margin-top: 5px;
+}
+.form-error.show { display: block; }
+
+.form-footer { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+.remember-me { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .85rem; color: var(--gray-600); font-weight: 500; }
+.remember-me input[type="checkbox"] { accent-color: var(--pink-primary); width: 15px; height: 15px; }
+
+/* Gaya Link Lupa Password */
+.forgot-password-link {
+  font-size: .85rem;
+  color: var(--pink-primary);
+  text-decoration: none;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.2s;
+}
+.forgot-password-link:hover { color: var(--pink-deep); }
+
+/* Tombol Masuk Kotak Lebar */
+.btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--pink-primary), var(--pink-deep));
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: .92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s;
+  box-shadow: 0 4px 14px rgba(232,116,138,0.25);
+  letter-spacing: 0.02em;
+}
+.btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,116,138,0.4); }
+.btn-login:active { transform: translateY(0); }
+.btn-login:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+/* Loading spinner */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  display: none;
+}
+.btn-login.loading .spinner { display: block; }
+.btn-login.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="login-card-container">
+  
+  <div class="login-card-header">
+    <div class="login-card-icon-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L20.2169 2.82598C20.6745 2.92766 21 3.33347 21 3.80217V13.7889C21 15.795 19.9974 17.6684 18.3282 18.7812L12 23L5.6718 18.7812C4.00261 17.6684 3 15.795 3 13.7889V3.80217C3 3.33347 3.32553 2.92766 3.78307 2.82598L12 1ZM12 3.04879L5 4.60434V13.7889C5 15.1263 5.6684 16.3752 6.7812 17.1171L12 20.5963L17.2188 17.1171C18.3316 16.3752 19 15.1263 19 13.7889V4.60434L12 3.04879ZM16.4524 8.22183L17.8666 9.63604L11.5026 16L7.25999 11.7574L8.67421 10.3431L11.5019 13.1709L16.4524 8.22183Z"></path></svg>
+    </div>
+    <h2 class="login-card-title">Admin Login</h2>
+    <div class="login-card-sub">Tinov Beauty Studio</div>
+  </div>
+
+  <div class="login-card-body">
+    
+    <div id="loginAlert" style="display:none;padding:12px 16px;background:#fee2e2;color:#dc2626;border-radius:10px;font-size:.85rem;margin-bottom:18px;border-left:4px solid #dc2626;"></div>
+
+    <div class="form-group">
+      <label class="form-label" for="emailInput">EMAIL</label>
+      <div class="input-wrap">
+        <input type="email" id="emailInput" class="form-input" placeholder="admin@tinovbeauty.com" autocomplete="email"/>
+      </div>
+      <div class="form-error" id="emailError">Masukkan email yang valid.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="passwordInput">PASSWORD</label>
+      <div class="input-wrap">
+        <input type="password" id="passwordInput" class="form-input" placeholder="••••••••" autocomplete="current-password"/>
+        <button class="toggle-pw" id="togglePw" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94818 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94818 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path></svg>
+        </button>
+      </div>
+      <div class="form-error" id="pwError">Password minimal 6 karakter.</div>
+    </div>
+
+    <div class="form-footer">
+      <label class="remember-me">
+        <input type="checkbox" id="rememberMe"/>
+        Ingat saya
+      </label>
+      <a href="forgot-password.html" class="forgot-password-link" id="forgotPwBtn">Lupa password?</a>
+    </div>
+
+    <button class="btn-login" id="loginBtn" type="button">
+      <div class="spinner"></div>
+      <span class="btn-text">Masuk</span>
+    </button>
+  </div>
+</div>
+
+<p style="text-align:center;font-size:.78rem;color:var(--gray-600);margin-top:28px;font-family: var(--font-body)">
+  Halaman ini hanya untuk administrator Tinov Beauty Studio.
+</p>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, setPersistence,
+           browserLocalPersistence, browserSessionPersistence, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkvyqtIRlRtGCbyuny0drmALLWFTkhzQQ",
+    authDomain: "tinovbeauty.firebaseapp.com",
+    databaseURL: "https://tinovbeauty-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tinovbeauty",
+    storageBucket: "tinovbeauty.firebasestorage.app",
+    messagingSenderId: "30816292453",
+    appId: "1:30816292453:web:0786c87ddf8df86204808c",
+    measurementId: "G-WLFCVJ1WLX"
+  };
+  
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, user => {
+    if (user) window.location.replace('dashboard.html');
+  });
+
+  const loginBtn   = document.getElementById('loginBtn');
+  const emailInput = document.getElementById('emailInput');
+  const pwInput    = document.getElementById('passwordInput');
+  const alertBox   = document.getElementById('loginAlert');
+  const togglePwBtn = document.getElementById('togglePw');
+
+  const svgMataTerbuka = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94818 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94818 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path></svg>`;
+  const svgMataDicoret = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8827 19.2968C16.1814 20.3755 14.1638 21.0002 12.0003 21.0002C6.60812 21.0002 2.12215 17.1204 1.18164 12.0002C1.61832 9.62282 2.81932 7.5129 4.52047 5.93457L1.39366 2.80777L2.80788 1.39355L22.6069 21.1925L21.1927 22.6068L17.8827 19.2968ZM5.9356 7.3497C4.60673 8.56015 3.6378 10.1672 3.22278 12.0002C4.14022 16.0521 7.7646 19.0002 12.0003 19.0002C13.5997 19.0002 15.112 18.5798 16.4243 17.8384L14.396 15.8101C13.7023 16.2472 12.8808 16.5002 12.0003 16.5002C9.51498 16.5002 7.50026 14.4854 7.50026 12.0002C7.50026 11.1196 7.75317 10.2981 8.19031 9.60442L5.9356 7.3497ZM12.9139 14.328L9.67246 11.0866C9.5613 11.3696 9.50026 11.6777 9.50026 12.0002C9.50026 13.3809 10.6196 14.5002 12.0003 14.5002C12.3227 14.5002 12.6309 14.4391 12.9139 14.328ZM20.8068 16.5925L19.376 15.1617C20.0319 14.2268 20.5154 13.1586 20.7777 12.0002C19.8603 7.94818 16.2359 5.00016 12.0003 5.00016C11.1544 5.00016 10.3329 5.11773 9.55249 5.33818L7.97446 3.76015C9.22127 3.26959 10.5793 3.00016 12.0003 3.00016C17.3924 3.00016 21.8784 6.87992 22.8189 12.0002C22.5067 13.6998 21.8038 15.2628 20.8068 16.5925ZM11.7229 7.50857C11.8146 7.50299 11.9071 7.50016 12.0003 7.50016C14.4855 7.50016 16.5003 9.51488 16.5003 12.0002C16.5003 12.0933 16.4974 12.1858 16.4919 12.2775L11.7229 7.50857Z"></path></svg>`;
+
+  togglePwBtn.addEventListener('click', () => {
+    if (pwInput.type === 'password') {
+      pwInput.type = 'text';
+      togglePwBtn.innerHTML = svgMataDicoret;
+    } else {
+      pwInput.type = 'password';
+      togglePwBtn.innerHTML = svgMataTerbuka;
+    }
+  });
+
+  function validate() {
+    let ok = true;
+    document.getElementById('emailError').classList.remove('show');
+    document.getElementById('pwError').classList.remove('show');
+    if (!emailInput.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+      document.getElementById('emailError').classList.add('show'); ok = false;
+    }
+    if (!pwInput.value || pwInput.value.length < 6) {
+      document.getElementById('pwError').classList.add('show'); ok = false;
+    }
+    return ok;
+  }
+
+  function friendlyError(code) {
+    return {
+      'auth/user-not-found':    'Email admin tidak ditemukan.',
+      'auth/wrong-password':    'Password salah. Coba lagi.',
+      'auth/invalid-email':     'Format email tidak valid.',
+      'auth/too-many-requests': 'Terlalu banyak percobaan. Coba lagi nanti.',
+      'auth/invalid-credential':'Email atau password salah.',
+    }[code] || 'Login gagal. Periksa email and password.';
+  }
+
+  loginBtn.addEventListener('click', async () => {
+    alertBox.style.display = 'none';
+    if (!validate()) return;
+    loginBtn.classList.add('loading');
+    loginBtn.disabled = true;
+    try {
+      const persistence = document.getElementById('rememberMe').checked
+        ? browserLocalPersistence : browserSessionPersistence;
+      await setPersistence(auth, persistence);
+      await signInWithEmailAndPassword(auth, emailInput.value.trim(), pwInput.value);
+    } catch(err) {
+      alertBox.textContent   = friendlyError(err.code);
+      alertBox.style.display = 'block';
+      alertBox.style.background = '#fee2e2';
+      alertBox.style.color = '#dc2626';
+      alertBox.style.borderLeft = '4px solid #dc2626';
+      loginBtn.classList.remove('loading');
+      loginBtn.disabled = false;
+    }
+  });
+
+  [emailInput, pwInput].forEach(el =>
+    el.addEventListener('keydown', e => { if(e.key==='Enter') loginBtn.click(); })
+  );
+</script>
+</body>
+</html>
