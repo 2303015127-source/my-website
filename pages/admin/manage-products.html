@@ -336,10 +336,11 @@
     clearModal();
     document.getElementById('modalTitle').textContent   = 'Tambah Produk Baru';
     document.getElementById('saveBtnText').textContent  = 'Simpan Produk';
+    document.getElementById('productModal').style.display = 'flex';
     document.getElementById('productModal').classList.add('open');
   };
 
-  window.openEditModal = function(id) {
+window.openEditModal = function(id) {
     clearModal();
     const p = allProducts.find(x=>x.id===id);
     if (!p) return;
@@ -352,11 +353,13 @@
     document.getElementById('fDeskripsi').value = p.deskripsi||'';
     document.getElementById('descCount').textContent = (p.deskripsi||'').length;
     document.getElementById('fHarga').value     = p.harga||'';
+    document.getElementById('productModal').style.display = 'flex';
     document.getElementById('productModal').classList.add('open');
   };
 
   function closeModal() {
     document.getElementById('productModal').classList.remove('open');
+    document.getElementById('productModal').style.display = 'none';
     clearModal();
   }
 
